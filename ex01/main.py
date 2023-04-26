@@ -12,7 +12,8 @@
 
 class ObjectC(object):
     def __init__(self):
-        pass    
+        pass
+
 
 def what_are_the_vars(*args, **kwargs):
     obj = ObjectC()
@@ -24,6 +25,7 @@ def what_are_the_vars(*args, **kwargs):
             return None
         setattr(obj, item, kwargs[item])
     return obj
+
 
 def doom_printer(obj):
     if obj is None:

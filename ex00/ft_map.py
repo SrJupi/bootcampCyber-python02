@@ -13,18 +13,18 @@
 
 from collections.abc import Iterable
 
-def ft_map(func, iterable):
-    '''Map the function to all elements of the iterable.
+
+def ft_map(function_to_apply, iterable):
+    """Map the function to all elements of the iterable.
 Args:
     function_to_apply: a function taking an iterable.
     iterable: an iterable object (list, tuple, iterator).
 Return:
     An iterable.
     None if the iterable can not be used by the function.
-'''
-    if not callable(func):
-        raise TypeError(f"'{type(func).__name__}' is not callable")
+"""
+    if not callable(function_to_apply):
+        raise TypeError(f"'{type(function_to_apply).__name__}' is not callable")
     if not isinstance(iterable, Iterable):
         raise TypeError(f"'{type(iterable).__name__}' is not iterable")
-    for item in iterable:
-        yield func(item)
+    return (function_to_apply(item) for item in iterable)

@@ -14,6 +14,7 @@ import time
 from random import randint
 import os
 
+
 def parse_time(exec_time):
     if exec_time > 1:
         exec_time = f"{exec_time:8.3f} s "
@@ -22,6 +23,7 @@ def parse_time(exec_time):
         exec_time = f"{exec_time:8.3f} ms"
     return exec_time
 
+
 def log(namefile='machine.log'):
     def decorator(func):
         def inner(*args, **kwargs):
@@ -29,16 +31,19 @@ def log(namefile='machine.log'):
             response = func(*args, *kwargs)
             exec_time = parse_time(time.time() - start_time)
             name = " ".join(word.lower().capitalize() for word in func.__name__.split('_')).ljust(18)
-            my_log= f"({os.getlogin()})Running: {name[0:18]} [ exec-time = {exec_time} ]\n"
+            my_log = f"({os.getlogin()})Running: {name[0:18]} [ exec-time = {exec_time} ]\n"
             with open(namefile, 'a') as f:
                 f.write(my_log)
             return response
+
         return inner
+
     return decorator
 
-class CoffeeMachine():
+
+class CoffeeMachine:
     water_level = 100
-    
+
     @log()
     def start_machine(self):
         if self.water_level > 20:
@@ -66,10 +71,11 @@ class CoffeeMachine():
         self.water_level += water_level
         print("Blub blub blub...")
 
+
 if __name__ == "__main__":
     machine = CoffeeMachine()
     for i in range(0, 5):
         machine.make_coffee()
-    
+
     machine.make_coffee()
-    machine.add_water(70)    
+    machine.add_water(70)
