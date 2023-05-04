@@ -11,20 +11,20 @@
 # **************************************************************************** #
 
 class ObjectC(object):
-    def __init__(self):
-        pass
-
-
+    def __init__(self, *args, **kwargs):
+        for i, item in enumerate(args):
+            attr = "var_" + str(i)
+            setattr(self, attr, item)
+        for item in kwargs:
+            if item in self.__dict__:
+                raise TypeError('arg already in __dict__')
+            setattr(self, item, kwargs[item])
+        
 def what_are_the_vars(*args, **kwargs):
-    obj = ObjectC()
-    for i, item in enumerate(args):
-        attr = "var_" + str(i)
-        setattr(obj, attr, item)
-    for item in kwargs:
-        if item in obj.__dict__:
-            return None
-        setattr(obj, item, kwargs[item])
-    return obj
+    try:
+        return ObjectC(*args, **kwargs)
+    except TypeError:
+        return None
 
 
 def doom_printer(obj):
