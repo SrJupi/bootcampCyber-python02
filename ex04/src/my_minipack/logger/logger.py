@@ -23,7 +23,7 @@ def parse_time(exec_time):
     return exec_time
 
 
-def log(namefile='machine.log'):
+def log(namefile='logger.log'):
     def decorator(func):
         def inner(*args, **kwargs):
             start_time = time.time()
