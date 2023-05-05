@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Upgrade pip and setuptools
-pip install --upgrade pip -y
-pip install --upgrade setuptools -y
+pip install --upgrade pip
+pip install --upgrade setuptools
 
 # Install dependencies (wheel)
-pip install -r requirements.txt -y
+pip install -r requirements.txt
 
 # Build package
 cd my_minipack/

@@ -1,5 +1,6 @@
 import csv
 import os
+import sys
 
 
 class CsvReader:
@@ -18,16 +19,19 @@ class CsvReader:
             except:
                 return None
             else:
-                reader = csv.reader(f, delimiter=self.sep)
-                for i, row in enumerate(reader):
-                    if not all(val.strip() for val in row):
-                        return None
-                    if self.header and i == 0:
-                        self.header_data = [val.strip() for val in row]
-                    else:
-                        self.data.append([val.strip() for val in row])
-                f.close()
-                return self
+                try:
+                    reader = csv.reader(f, delimiter=self.sep)
+                    for i, row in enumerate(reader):
+                        if not all(val.strip() for val in row):
+                            return None
+                        if self.header and i == 0:
+                            self.header_data = [val.strip() for val in row]
+                        else:
+                            self.data.append([val.strip() for val in row])
+                    f.close()
+                    return self
+                except:
+                    return None
         else:
             return None
 
@@ -66,13 +70,12 @@ Returns:
 
 
 if __name__ == '__main__':
-    with CsvReader('bad.csv', header=False) as manager:
-        if manager is None:
-            print('Empty manager... exiting...')
-            exit()
-        print(manager.filename)
-        print(manager.getheader())
-        for item in manager.getdata():
-            print (item)
-        #print(manager.getdata())
-    # print(manager.data)
+    if len(sys.argv) == 2:
+        with CsvReader(sys.argv[1], header=False) as manager:
+            if manager is None:
+                print('Empty manager... exiting...')
+                exit()
+            print(manager.filename)
+            print(manager.getheader())
+            for item in manager.getdata():
+                print (item)
